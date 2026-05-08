@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doug Takeuchi, DDS — San Jose Dentist</title>
+  <link rel="icon" type="image/png" href="uploads/TakeuchiFavicon-e9fd53c7.png" />
+  <meta name="ext-resource-dependency" content="uploads/Doug Takeuchi Logo web.png" data-resource-id="logo" />
+  <meta name="ext-resource-dependency" content="uploads/TakeuchiTeamShot2.jpeg" data-resource-id="heroBg" />
+  <meta name="ext-resource-dependency" content="uploads/DTakeuchiHeadshot.jpeg" data-resource-id="headshot" />
+  <meta name="ext-resource-dependency" content="uploads/TakeuchiExterior.png" data-resource-id="exteriorBg" />
+  <meta name="ext-resource-dependency" content="uploads/Screenshot 2026-04-26 at 12.32.55 PM.png" data-resource-id="mapImg" />
+  <template id="__bundler_thumbnail" data-bg-color="#fcfaf8">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <rect width="200" height="200" fill="#fcfaf8"/>
+      <circle cx="100" cy="100" r="60" fill="#2a9d8f"/>
+      <path d="M82 70c-10 0-16 8-16 16 0 8 4 14 6 20 2 8 2 16 2 24 0 8 2 12 8 12s8-8 8-14c0-2 1-2 2-2s2 0 2 2c0 6 4 14 12 14s8-4 8-12c0-8 0-16 2-24 2-6 6-12 6-20 0-8-6-16-16-16-4 0-8 2-12 6-4-4-8-6-12-6z" fill="#fff"/>
+    </svg>
+  </template>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: oklch(0.985 0.008 60); color: oklch(0.18 0.02 240); }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: oklch(0.75 0.06 195); border-radius: 3px; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse-ring {
+      0%   { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(1.55); opacity: 0; }
+    }
+    .fade-up { animation: fadeUp 0.7s ease both; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.22s; }
+    .delay-3 { animation-delay: 0.36s; }
+    .delay-4 { animation-delay: 0.52s; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel">
+
+
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#2a9d8f",
+  "heroHeadline": "Your Smile Deserves a Doctor You Trust",
+  "showBanner": true,
+  "ctaLabel": "Book a Free Consultation",
+  "font": "Playfair Display"
+} /*EDITMODE-END*/;
+
+// ─── TOKENS ──────────────────────────────────────────────────────────────────
+const T = {
+  teal: "oklch(0.52 0.13 192)",
+  tealLight: "oklch(0.94 0.04 192)",
+  tealMid: "oklch(0.70 0.09 192)",
+  gold: "oklch(0.72 0.13 82)",
+  goldLight: "oklch(0.95 0.04 82)",
+  slate: "oklch(0.18 0.02 240)",
+  slateMid: "oklch(0.40 0.02 240)",
+  slateLight: "oklch(0.62 0.02 240)",
+  white: "oklch(0.985 0.008 60)",
+  offWhite: "oklch(0.97 0.01 60)",
+  surface: "oklch(0.975 0.012 60)"
+};
+
+// ─── ICONS ───────────────────────────────────────────────────────────────────
+const Icon = ({ name, size = 22, color = "currentColor" }) => {
+  const paths = {
+    tooth: "M8 2C5.5 2 4 4 4 6c0 2 1 3.5 1.5 5C6 13 6 15 6 17c0 2 .5 3 2 3s2-2 2-3.5c0-.5.3-.5.5-.5s.5 0 .5.5C11 18 12 20 14 20s2-1 2-3c0-2 0-4 .5-6C17 9.5 18 8 18 6c0-2-1.5-4-4-4-1 0-2 .5-3 1.5C10 2.5 9 2 8 2z",
+    star: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
+    phone: "M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z",
+    calendar: "M8 2v3M16 2v3M3 8h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z",
+    check: "M20 6L9 17l-5-5",
+    shield: "M12 2L3 7v6c0 5.25 3.75 10.15 9 11.25C17.25 23.15 21 18.25 21 13V7L12 2z",
+    smile: "M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01M22 12c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2s10 4.48 10 10z",
+    sparkle: "M12 3v3m0 12v3m9-9h-3M6 12H3m12.36-6.36-2.12 2.12M8.46 15.54l-2.12 2.12m12.02 0-2.12-2.12M8.46 8.46 6.34 6.34",
+    map: "M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0zM12 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6z",
+    users: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75",
+    implant: "M12 2v6m0 0c-2.5 0-5 1.5-5 4v8h10v-8c0-2.5-2.5-4-5-4zM9 20h6",
+    sedation: "M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18",
+    chevron: "M19 9l-7 7-7-7",
+    arrow: "M5 12h14M12 5l7 7-7 7",
+    close: "M18 6L6 18M6 6l12 12"
+  };
+  const d = paths[name] || paths.star;
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24"
+    fill={name === "star" || name === "tooth" ? color : "none"}
+    stroke={name === "star" || name === "tooth" ? "none" : color}
+    strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d={d} />
+    </svg>);
+
+};
+
+// ─── TOP BANNER ──────────────────────────────────────────────────────────────
+const Banner = ({ tweaks }) => {
+  const [show, setShow] = React.useState(true);
+  if (!tweaks.showBanner || !show) return null;
+  return (
+    <div style={{
+      background: T.teal, color: "#fff", textAlign: "center",
+      padding: "10px 20px", fontSize: 14, fontWeight: 500,
+      display: "flex", alignItems: "center", justifyContent: "center", gap: 12,
+      position: "relative"
+    }}>
+      <Icon name="sparkle" size={16} color="#fff" />
+      New patients welcome — book this month and receive a <strong style={{ marginLeft: 4 }}>complimentary whitening consult</strong>
+      <button onClick={() => setShow(false)} style={{
+        position: "absolute", right: 16, background: "none", border: "none",
+        color: "#fff", cursor: "pointer", opacity: 0.8, lineHeight: 1
+      }}>
+        <Icon name="close" size={16} color="#fff" />
+      </button>
+    </div>);
+
+};
+
+// ─── NAV ─────────────────────────────────────────────────────────────────────
+const Nav = ({ tweaks }) => {
+  const [scrolled, setScrolled] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("scroll", onScroll);
+    window.addEventListener("resize", onResize);
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onResize); };
+  }, []);
+
+  const links = ["Services", "About", "Reviews", "Contact"];
+  const solidBg = scrolled || menuOpen;
+
+  return (
+    <div style={{ position: "sticky", top: 0, zIndex: 100 }}>
+      <nav style={{
+        background: solidBg ? "rgba(252,250,248,0.97)" : "transparent",
+        backdropFilter: solidBg ? "blur(12px)" : "none",
+        borderBottom: scrolled ? `1px solid oklch(0.90 0.01 60)` : "1px solid transparent",
+        transition: "all 0.35s ease",
+        padding: "0 clamp(20px, 5vw, 80px)",
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        height: 68
+      }}>
+        <a href="#" style={{ textDecoration: "none", display: "flex", alignItems: "center" }}>
+          <img src={window.__resources.logo} alt="Doug Takeuchi, DDS"
+            style={{ height: 48, width: "auto", display: "block", objectFit: "contain" }} />
+        </a>
+
+        {isMobile ? (
+          <button onClick={() => setMenuOpen((o) => !o)} aria-label="Toggle menu" style={{
+            background: "none", border: "none", cursor: "pointer", padding: 8,
+            display: "flex", flexDirection: "column", justifyContent: "center", gap: 5
+          }}>
+            <span style={{
+              display: "block", width: 24, height: 2, borderRadius: 2,
+              background: menuOpen ? T.teal : T.slate, transition: "all 0.3s",
+              transform: menuOpen ? "rotate(45deg) translate(5px, 5px)" : ""
+            }} />
+            <span style={{
+              display: "block", width: 24, height: 2, borderRadius: 2,
+              background: menuOpen ? T.teal : T.slate, transition: "all 0.3s",
+              opacity: menuOpen ? 0 : 1
+            }} />
+            <span style={{
+              display: "block", width: 24, height: 2, borderRadius: 2,
+              background: menuOpen ? T.teal : T.slate, transition: "all 0.3s",
+              transform: menuOpen ? "rotate(-45deg) translate(5px, -5px)" : ""
+            }} />
+          </button>
+        ) : (
+          <div style={{ display: "flex", gap: 32, alignItems: "center" }}>
+            {links.map((l) =>
+            <a key={l} href={`#${l.toLowerCase()}`} style={{
+              textDecoration: "none", color: T.slateMid, fontSize: 14, fontWeight: 500,
+              transition: "color 0.2s"
+            }}
+            onMouseEnter={(e) => e.target.style.color = T.teal}
+            onMouseLeave={(e) => e.target.style.color = T.slateMid}>
+              {l}</a>
+            )}
+            <a href="#contact" style={{
+              background: tweaks.accentColor || T.teal, color: "#fff",
+              padding: "9px 22px", borderRadius: 30, fontSize: 14, fontWeight: 600,
+              textDecoration: "none", transition: "opacity 0.2s, transform 0.15s",
+              display: "flex", alignItems: "center", gap: 7
+            }}
+            onMouseEnter={(e) => {e.currentTarget.style.opacity = "0.88";e.currentTarget.style.transform = "translateY(-1px)";}}
+            onMouseLeave={(e) => {e.currentTarget.style.opacity = "1";e.currentTarget.style.transform = "";}}>
+              <Icon name="phone" size={14} color="#fff" />
+              408-295-5651
+            </a>
+          </div>
+        )}
+      </nav>
+
+      {/* Mobile dropdown menu */}
+      {isMobile && menuOpen && (
+        <div style={{
+          background: "rgba(252,250,248,0.97)", backdropFilter: "blur(12px)",
+          borderBottom: `1px solid oklch(0.90 0.01 60)`,
+          padding: "16px clamp(20px, 5vw, 80px) 28px",
+          display: "flex", flexDirection: "column"
+        }}>
+          {links.map((l) =>
+          <a key={l} href={`#${l.toLowerCase()}`}
+            onClick={() => setMenuOpen(false)}
+            style={{
+              textDecoration: "none", color: T.slate, fontSize: 18, fontWeight: 500,
+              padding: "14px 0", borderBottom: `1px solid oklch(0.92 0.01 60)`,
+              display: "block"
+            }}>
+            {l}
+          </a>
+          )}
+          <a href="tel:4082955651" style={{
+            marginTop: 20, background: tweaks.accentColor || T.teal, color: "#fff",
+            padding: "14px 22px", borderRadius: 50,
+            textDecoration: "none", fontWeight: 600, fontSize: 15,
+            display: "flex", alignItems: "center", justifyContent: "center", gap: 9
+          }}>
+            <Icon name="phone" size={16} color="#fff" />
+            Call 408-295-5651
+          </a>
+        </div>
+      )}
+    </div>);
+
+};
+
+// ─── HERO ────────────────────────────────────────────────────────────────────
+const Hero = ({ tweaks }) => {
+  const [formState, setFormState] = React.useState({ name: "", phone: "", service: "", submitted: false });
+  const services = ["Teeth Whitening", "Dental Implants", "Invisalign®", "Sedation Dentistry", "General Checkup", "Emergency Care"];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormState((s) => ({ ...s, submitted: true }));
+  };
+
+  return (
+    <section style={{
+      minHeight: "calc(100vh - 68px)",
+      background: `linear-gradient(135deg, oklch(0.10 0.025 240 / 0.48) 0%, oklch(0.18 0.04 220 / 0.42) 60%, oklch(0.24 0.07 190 / 0.38) 100%), url(${window.__resources.heroBg}) center/cover no-repeat`,
+      display: "flex", alignItems: "center",
+      padding: "60px clamp(20px,6vw,100px)",
+      position: "relative", overflow: "hidden"
+    }}>
+      {/* Decorative orb */}
+      <div style={{
+        position: "absolute", top: -120, right: -80, width: 600, height: 600,
+        borderRadius: "50%",
+        background: "radial-gradient(circle, oklch(0.52 0.13 192 / 0.18) 0%, transparent 70%)",
+        pointerEvents: "none"
+      }} />
+      <div style={{
+        position: "absolute", bottom: -200, left: -100, width: 500, height: 500,
+        borderRadius: "50%",
+        background: "radial-gradient(circle, oklch(0.72 0.13 82 / 0.10) 0%, transparent 70%)",
+        pointerEvents: "none"
+      }} />
+
+      <div style={{
+        maxWidth: 1200, margin: "0 auto", width: "100%",
+        display: "grid", gridTemplateColumns: "1fr 420px", gap: 60, alignItems: "center"
+      }}>
+        {/* Left copy */}
+        <div>
+          <div className="fade-up" style={{
+            display: "inline-flex", alignItems: "center", gap: 8,
+            background: "oklch(0.52 0.13 192 / 0.18)", border: "1px solid oklch(0.52 0.13 192 / 0.35)",
+            borderRadius: 30, padding: "6px 16px", marginBottom: 28
+          }}>
+            <Icon name="shield" size={14} color={T.tealMid} />
+            <span style={{ fontSize: 12, fontWeight: 600, color: T.tealMid, letterSpacing: "0.06em", textTransform: "uppercase" }}>
+              20+ Years · San Jose's Trusted Dentist
+            </span>
+          </div>
+
+          <h1 className="fade-up delay-1" style={{
+            fontFamily: `'${tweaks.font || "Playfair Display"}',serif`,
+            fontSize: "clamp(38px,4.5vw,64px)", fontWeight: 700,
+            color: "#fff", lineHeight: 1.12, marginBottom: 24,
+            textWrap: "pretty", margin: "0px 0px 24px"
+          }}>
+            {tweaks.heroHeadline}
+          </h1>
+
+          <p className="fade-up delay-2" style={{
+            fontSize: 18, color: "#fff", lineHeight: 1.7,
+            maxWidth: 520, marginBottom: 40
+          }}>
+            Dr. Doug Takeuchi brings comfort-first, anxiety-free dentistry to every appointment — from routine cleanings to full smile makeovers. New patients always welcome.
+          </p>
+
+          <div className="fade-up delay-3" style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 52 }}>
+            <a href="#contact" style={{
+              background: tweaks.accentColor || T.teal,
+              color: "#fff", padding: "15px 32px", borderRadius: 50,
+              textDecoration: "none", fontWeight: 600, fontSize: 16,
+              display: "flex", alignItems: "center", gap: 9,
+              transition: "transform 0.2s, box-shadow 0.2s",
+              boxShadow: `0 6px 28px ${tweaks.accentColor || T.teal}55`
+            }}
+            onMouseEnter={(e) => {e.currentTarget.style.transform = "translateY(-2px)";e.currentTarget.style.boxShadow = `0 12px 36px ${tweaks.accentColor || T.teal}66`;}}
+            onMouseLeave={(e) => {e.currentTarget.style.transform = "";e.currentTarget.style.boxShadow = `0 6px 28px ${tweaks.accentColor || T.teal}55`;}}>
+              
+              {tweaks.ctaLabel || "Book a Free Consultation"}
+              <Icon name="arrow" size={16} color="#fff" />
+            </a>
+            <a href="tel:4082955651" style={{
+              background: "oklch(1 0 0 / 0.12)", border: "1px solid oklch(1 0 0 / 0.25)",
+              color: "#fff", padding: "15px 28px", borderRadius: 50,
+              textDecoration: "none", fontWeight: 500, fontSize: 16,
+              display: "flex", alignItems: "center", gap: 9,
+              transition: "background 0.2s"
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.background = "oklch(1 0 0 / 0.20)"}
+            onMouseLeave={(e) => e.currentTarget.style.background = "oklch(1 0 0 / 0.12)"}>
+              
+              <Icon name="phone" size={16} color="#fff" />
+              Call Now
+            </a>
+          </div>
+
+          {/* Social proof strip */}
+          <div className="fade-up delay-4" style={{ display: "flex", gap: 32, flexWrap: "wrap" }}>
+            {[
+            { n: "20+", label: "Years in Practice" },
+            { n: "500+", label: "Five-Star Reviews" },
+            { n: "2,000+", label: "Families Served" }].
+            map((item, i) =>
+            <div key={i}>
+                <div style={{ fontFamily: "'Playfair Display',serif", fontSize: 30, fontWeight: 700, color: "#fff", lineHeight: 1 }}>{item.n}</div>
+                <div style={{ fontSize: 12, color: "#fff", marginTop: 4 }}>{item.label}</div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Right: lead form */}
+        <div style={{
+          background: "oklch(0.985 0.008 60)", borderRadius: 20,
+          padding: "36px 32px", boxShadow: "0 32px 80px oklch(0 0 0 / 0.35)"
+        }}>
+          {formState.submitted ?
+          <div style={{ textAlign: "center", padding: "40px 0" }}>
+              <div style={{
+              width: 64, height: 64, borderRadius: "50%",
+              background: T.tealLight, display: "flex", alignItems: "center",
+              justifyContent: "center", margin: "0 auto 20px"
+            }}>
+                <Icon name="check" size={28} color={T.teal} />
+              </div>
+              <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 22, marginBottom: 10, color: T.slate }}>
+                We'll be in touch!
+              </h3>
+              <p style={{ color: T.slateMid, fontSize: 15, lineHeight: 1.6 }}>
+                Our team will call you within one business hour to confirm your appointment.
+              </p>
+              <div style={{ marginTop: 20, padding: "14px 20px", background: T.tealLight, borderRadius: 12 }}>
+                <div style={{ fontSize: 13, color: T.teal, fontWeight: 600 }}>Or call us directly:</div>
+                <div style={{ fontSize: 20, fontWeight: 700, color: T.slate, marginTop: 4 }}>408-295-5651</div>
+              </div>
+            </div> :
+
+          <>
+              <div style={{ marginBottom: 24 }}>
+                <div style={{
+                display: "inline-flex", alignItems: "center", gap: 6,
+                background: T.goldLight, borderRadius: 20, padding: "5px 12px", marginBottom: 12
+              }}>
+                  <Icon name="sparkle" size={13} color={T.gold} />
+                  <span style={{ fontSize: 11, fontWeight: 700, color: T.gold, letterSpacing: "0.05em", textTransform: "uppercase" }}>Free Consultation</span>
+                </div>
+                <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 24, color: T.slate, lineHeight: 1.3, marginBottom: 8 }}>
+                  Request Your Appointment
+                </h2>
+                <p style={{ fontSize: 14, color: T.slateMid, lineHeight: 1.5 }}>
+                  No insurance? No problem. We offer flexible financing and CareCredit.
+                </p>
+              </div>
+
+              <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                <div>
+                  <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: T.slateMid, marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.05em" }}>Full Name</label>
+                  <input
+                  type="text" required placeholder="Jane Smith"
+                  value={formState.name}
+                  onChange={(e) => setFormState((s) => ({ ...s, name: e.target.value }))}
+                  style={{
+                    width: "100%", padding: "12px 14px", border: `1.5px solid oklch(0.88 0.01 60)`,
+                    borderRadius: 10, fontSize: 15, outline: "none",
+                    fontFamily: "'DM Sans',sans-serif",
+                    background: T.offWhite, color: T.slate,
+                    transition: "border-color 0.2s"
+                  }}
+                  onFocus={(e) => e.target.style.borderColor = tweaks.accentColor || T.teal}
+                  onBlur={(e) => e.target.style.borderColor = "oklch(0.88 0.01 60)"} />
+                
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: T.slateMid, marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.05em" }}>Phone Number</label>
+                  <input
+                  type="tel" required placeholder="(408) 555-0000"
+                  value={formState.phone}
+                  onChange={(e) => setFormState((s) => ({ ...s, phone: e.target.value }))}
+                  style={{
+                    width: "100%", padding: "12px 14px", border: `1.5px solid oklch(0.88 0.01 60)`,
+                    borderRadius: 10, fontSize: 15, outline: "none",
+                    fontFamily: "'DM Sans',sans-serif",
+                    background: T.offWhite, color: T.slate,
+                    transition: "border-color 0.2s"
+                  }}
+                  onFocus={(e) => e.target.style.borderColor = tweaks.accentColor || T.teal}
+                  onBlur={(e) => e.target.style.borderColor = "oklch(0.88 0.01 60)"} />
+                
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: T.slateMid, marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.05em" }}>I'm Interested In</label>
+                  <select
+                  value={formState.service}
+                  onChange={(e) => setFormState((s) => ({ ...s, service: e.target.value }))}
+                  style={{
+                    width: "100%", padding: "12px 14px", border: `1.5px solid oklch(0.88 0.01 60)`,
+                    borderRadius: 10, fontSize: 15, outline: "none",
+                    fontFamily: "'DM Sans',sans-serif",
+                    background: T.offWhite, color: formState.service ? T.slate : T.slateLight,
+                    transition: "border-color 0.2s", appearance: "none",
+                    cursor: "pointer"
+                  }}
+                  onFocus={(e) => e.target.style.borderColor = tweaks.accentColor || T.teal}
+                  onBlur={(e) => e.target.style.borderColor = "oklch(0.88 0.01 60)"}>
+                  
+                    <option value="">Select a service...</option>
+                    {services.map((s) => <option key={s} value={s}>{s}</option>)}
+                  </select>
+                </div>
+                <button type="submit" style={{
+                background: tweaks.accentColor || T.teal,
+                color: "#fff", border: "none", borderRadius: 50,
+                padding: "15px", fontSize: 16, fontWeight: 600,
+                cursor: "pointer", marginTop: 4,
+                fontFamily: "'DM Sans',sans-serif",
+                transition: "opacity 0.2s, transform 0.15s",
+                display: "flex", alignItems: "center", justifyContent: "center", gap: 8
+              }}
+              onMouseEnter={(e) => {e.currentTarget.style.opacity = "0.88";e.currentTarget.style.transform = "translateY(-1px)";}}
+              onMouseLeave={(e) => {e.currentTarget.style.opacity = "1";e.currentTarget.style.transform = "";}}>
+                
+                  <Icon name="calendar" size={17} color="#fff" />
+                  {tweaks.ctaLabel || "Book a Free Consultation"}
+                </button>
+              </form>
+
+              <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+                <Icon name="shield" size={14} color={T.slateLight} />
+                <span style={{ fontSize: 12, color: T.slateLight }}>100% private · No spam · Cancel anytime</span>
+              </div>
+            </>
+          }
+        </div>
+      </div>
+    </section>);
+
+};
+
+// ─── TRUST BAR ───────────────────────────────────────────────────────────────
+const TrustBar = () =>
+<section style={{
+  background: T.slate, padding: "24px clamp(20px,6vw,100px)"
+}}>
+    <div style={{
+    maxWidth: 1100, margin: "0 auto",
+    display: "flex", alignItems: "center", justifyContent: "space-around",
+    flexWrap: "wrap", gap: 24
+  }}>
+      {[
+    { icon: "shield", label: "Anxiety-Free Sedation" },
+    { icon: "users", label: "All Ages Welcome" },
+    { icon: "calendar", label: "Same-Day Emergencies" },
+    { icon: "smile", label: "Financing Available" },
+    { icon: "map", label: "Downtown San Jose" }].
+    map(({ icon, label }) =>
+    <div key={label} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <Icon name={icon} size={18} color={T.tealMid} />
+          <span style={{ fontSize: 13, fontWeight: 500, color: "oklch(0.80 0.02 220)", letterSpacing: "0.02em" }}>{label}</span>
+        </div>
+    )}
+    </div>
+  </section>;
+
+
+// ─── SERVICES ────────────────────────────────────────────────────────────────
+const services = [
+{
+  icon: "sparkle", title: "Cosmetic Dentistry",
+  desc: "Veneers, bonding, crowns, and whitening designed to give you a radiant, confidence-boosting smile.",
+  highlight: "Most Popular"
+},
+{
+  icon: "implant", title: "Dental Implants",
+  desc: "The gold standard for replacing missing teeth — natural-looking, permanent, and comfortable.",
+  highlight: null
+},
+{
+  icon: "sedation", title: "Sedation Dentistry",
+  desc: "Oral and nitrous sedation so even the most anxious patients can relax and get the care they need.",
+  highlight: "Specialty"
+},
+{
+  icon: "smile", title: "Family Dentistry",
+  desc: "Comprehensive care for every age, from children's first visit to full-arch restorations for seniors.",
+  highlight: null
+},
+{
+  icon: "tooth", title: "Tooth Repair",
+  desc: "Fillings, root canals, and extractions performed gently with the latest high-tech equipment.",
+  highlight: null
+},
+{
+  icon: "users", title: "Periodontics",
+  desc: "Gum disease treatment and ongoing periodontal care to protect your teeth from the roots up.",
+  highlight: null
+}];
+
+
+const Services = ({ tweaks }) =>
+<section id="services" style={{
+  padding: "100px clamp(20px,6vw,100px)",
+  background: T.offWhite
+}}>
+    <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{ textAlign: "center", marginBottom: 60 }}>
+        <div style={{
+        display: "inline-flex", alignItems: "center", gap: 6,
+        color: tweaks.accentColor || T.teal, fontSize: 12, fontWeight: 700,
+        letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 14
+      }}>
+          <Icon name="tooth" size={14} color={tweaks.accentColor || T.teal} />
+          Comprehensive Care
+        </div>
+        <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 40, color: T.slate, lineHeight: 1.2 }}>
+          Everything Your Smile Needs
+        </h2>
+        <p style={{ fontSize: 17, color: T.slateMid, marginTop: 16, maxWidth: 520, margin: "16px auto 0" }}>
+          From first visit to full smile transformation — Dr. Takeuchi's practice handles it all.
+        </p>
+      </div>
+
+      <div style={{
+      display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(300px,1fr))", gap: 24
+    }}>
+        {services.map((svc) =>
+      <ServiceCard key={svc.title} svc={svc} tweaks={tweaks} />
+      )}
+      </div>
+    </div>
+  </section>;
+
+
+const ServiceCard = ({ svc, tweaks }) => {
+  const [hov, setHov] = React.useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{
+        background: hov ? T.slate : "#fff",
+        borderRadius: 16, padding: "32px 28px",
+        border: `1.5px solid ${hov ? T.slate : "oklch(0.91 0.01 60)"}`,
+        transition: "all 0.3s ease",
+        cursor: "default", position: "relative",
+        boxShadow: hov ? "0 20px 50px oklch(0 0 0 / 0.18)" : "0 2px 12px oklch(0 0 0 / 0.04)",
+        transform: hov ? "translateY(-4px)" : ""
+      }}>
+      
+      {svc.highlight &&
+      <div style={{
+        position: "absolute", top: 20, right: 20,
+        background: tweaks.accentColor || T.teal,
+        color: "#fff", fontSize: 11, fontWeight: 700,
+        letterSpacing: "0.05em", textTransform: "uppercase",
+        padding: "3px 10px", borderRadius: 20
+      }}>{svc.highlight}</div>
+      }
+      <div style={{
+        width: 48, height: 48, borderRadius: 12,
+        background: hov ? "oklch(0.52 0.13 192 / 0.25)" : T.tealLight,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        marginBottom: 20, transition: "background 0.3s"
+      }}>
+        <Icon name={svc.icon} size={22} color={hov ? T.tealMid : tweaks.accentColor || T.teal} />
+      </div>
+      <h3 style={{
+        fontFamily: "'Playfair Display',serif", fontSize: 20,
+        color: hov ? "#fff" : T.slate, marginBottom: 10,
+        transition: "color 0.3s"
+      }}>{svc.title}</h3>
+      <p style={{
+        fontSize: 14, lineHeight: 1.7,
+        color: hov ? "oklch(0.75 0.02 220)" : T.slateMid,
+        transition: "color 0.3s"
+      }}>{svc.desc}</p>
+      <a href="#contact" style={{
+        marginTop: 20, display: "flex", alignItems: "center", gap: 6,
+        color: hov ? T.tealMid : (tweaks.accentColor || T.teal), fontSize: 13, fontWeight: 600,
+        opacity: hov ? 1 : 0.7, transition: "opacity 0.3s",
+        textDecoration: "none"
+      }}>
+        Book a Consultation <Icon name="arrow" size={13} color={hov ? T.tealMid : (tweaks.accentColor || T.teal)} />
+      </a>
+    </div>);
+
+};
+
+// ─── ABOUT ───────────────────────────────────────────────────────────────────
+const About = ({ tweaks }) =>
+<section id="about" style={{
+  padding: "100px clamp(20px,6vw,100px)",
+  background: "#fff"
+}}>
+    <div style={{
+    maxWidth: 1100, margin: "0 auto",
+    display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center"
+  }}>
+      {/* Headshot */}
+      <div style={{ position: "relative" }}>
+        <div style={{
+        width: "100%", aspectRatio: "4/5",
+        borderRadius: 24, overflow: "hidden"
+      }}>
+          <img src={window.__resources.headshot} alt="Dr. Doug Takeuchi, DDS"
+        style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
+        </div>
+        {/* Floating badge */}
+        <div style={{
+        position: "absolute", bottom: 28, right: -24,
+        background: "#fff", borderRadius: 16, padding: "16px 22px",
+        boxShadow: "0 12px 40px oklch(0 0 0 / 0.14)",
+        display: "flex", alignItems: "center", gap: 14
+      }}>
+          <div style={{
+          width: 44, height: 44, borderRadius: "50%",
+          background: T.tealLight, display: "flex", alignItems: "center", justifyContent: "center"
+        }}>
+            <Icon name="shield" size={20} color={tweaks.accentColor || T.teal} />
+          </div>
+          <div>
+            <div style={{ fontSize: 12, color: T.slateLight, fontWeight: 500 }}>ADA Member</div>
+            <div style={{ fontSize: 14, fontWeight: 700, color: T.slate }}>Board Certified DDS</div>
+          </div>
+        </div>
+        {/* Stars badge */}
+        <div style={{
+        position: "absolute", top: 28, left: -24,
+        background: T.slate, borderRadius: 14, padding: "12px 18px",
+        boxShadow: "0 8px 28px oklch(0 0 0 / 0.22)"
+      }}>
+          <div style={{ display: "flex", gap: 2, marginBottom: 4 }}>
+            {[1, 2, 3, 4, 5].map((i) => <Icon key={i} name="star" size={13} color={T.gold} />)}
+          </div>
+          <div style={{ fontSize: 12, color: "#fff", fontWeight: 600 }}>500+ Yelp Reviews</div>
+        </div>
+      </div>
+
+      {/* Copy */}
+      <div>
+        <div style={{
+        display: "inline-flex", alignItems: "center", gap: 6,
+        color: tweaks.accentColor || T.teal, fontSize: 12, fontWeight: 700,
+        letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16
+      }}>
+          <Icon name="sparkle" size={13} color={tweaks.accentColor || T.teal} />
+          Meet Your Doctor
+        </div>
+        <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 40, color: T.slate, lineHeight: 1.2, marginBottom: 24 }}>
+          Dr. Doug Takeuchi,&nbsp;DDS
+        </h2>
+        <p style={{ fontSize: 16, color: T.slateMid, lineHeight: 1.75, marginBottom: 20 }}>
+          With over <strong>20 years of practice</strong> in San Jose, Dr. Takeuchi has built a reputation for combining clinical excellence with genuine warmth. He personally answers patient emails — because to him, every patient is a guest.
+        </p>
+        <p style={{ fontSize: 16, color: T.slateMid, lineHeight: 1.75, marginBottom: 36 }}>
+          His office features high-tech diagnostic equipment, in-ceiling DirectTV, and multiple sedation options — because great dentistry shouldn't mean suffering through it.
+        </p>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 14, marginBottom: 40 }}>
+          {[
+        "Oral & nitrous sedation for anxious patients",
+        "High-tech imaging & same-day care",
+        "Full cosmetic & restorative capabilities",
+        "Flexible payment plans & CareCredit accepted"].
+        map((item) =>
+        <div key={item} style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{
+            width: 24, height: 24, borderRadius: "50%",
+            background: T.tealLight, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0
+          }}>
+                <Icon name="check" size={13} color={tweaks.accentColor || T.teal} />
+              </div>
+              <span style={{ fontSize: 15, color: T.slate }}>{item}</span>
+            </div>
+        )}
+        </div>
+
+        <a href="#contact" style={{
+        display: "inline-flex", alignItems: "center", gap: 9,
+        background: tweaks.accentColor || T.teal, color: "#fff",
+        padding: "14px 30px", borderRadius: 50, textDecoration: "none",
+        fontWeight: 600, fontSize: 15, transition: "opacity 0.2s, transform 0.15s"
+      }}
+      onMouseEnter={(e) => {e.currentTarget.style.opacity = "0.88";e.currentTarget.style.transform = "translateY(-1px)";}}
+      onMouseLeave={(e) => {e.currentTarget.style.opacity = "1";e.currentTarget.style.transform = "";}}>
+        
+          Meet Dr. Takeuchi
+          <Icon name="arrow" size={15} color="#fff" />
+        </a>
+      </div>
+    </div>
+  </section>;
+
+
+// ─── REVIEWS ─────────────────────────────────────────────────────────────────
+const reviews = [
+{ name: "Tobi B.", text: "Dr. Takeuchi and his staff are tremendous. I had a semi-complicated procedure with multiple steps — he talked me through everything clearly and helped me make the best decision.", stars: 5 },
+{ name: "Amanda T.", text: "I get terrible anxiety going to the dentist. I have never been able to find a dentist that put me at ease enough to get work done — until Dr. Takeuchi. Total game changer.", stars: 5 },
+{ name: "Jeff T.", text: "Our family has been going to Dr. Takeuchi for years. Doug is a great dentist and always makes us feel comfortable. His staff is fantastic. The office is clean and modern.", stars: 5 },
+{ name: "Quynh P.", text: "Been to many dentists, he's the best. Don't know how else to say it. Cool equipment. Explains everything in detail and shows you pictures while telling the story.", stars: 5 },
+{ name: "Mike L.", text: "I can honestly say that thanks to Dr. Takeuchi and his staff, a dentist appointment is an activity I no longer dread. That says a lot.", stars: 5 },
+{ name: "Insightful G.", text: "One of the very few dentists I know that personally answers patient email inquiries, and responds very quickly. He clearly cares a great deal about his business and patients.", stars: 5 }];
+
+
+const Reviews = ({ tweaks }) => {
+  const [active, setActive] = React.useState(0);
+
+  return (
+    <section id="reviews" style={{
+      padding: "100px clamp(20px,6vw,100px)",
+      background: T.offWhite
+    }}>
+      <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+        <div style={{
+          display: "inline-flex", alignItems: "center", gap: 6,
+          color: tweaks.accentColor || T.teal, fontSize: 12, fontWeight: 700,
+          letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 14
+        }}>
+          <Icon name="star" size={13} color={tweaks.accentColor || T.teal} />
+          Patient Reviews
+        </div>
+        <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 40, color: T.slate, marginBottom: 16 }}>
+          What San Jose Patients Say
+        </h2>
+        <div style={{ display: "flex", justifyContent: "center", gap: 3, marginBottom: 8 }}>
+          {[1, 2, 3, 4, 5].map((i) => <Icon key={i} name="star" size={20} color={T.gold} />)}
+        </div>
+        <p style={{ color: T.slateLight, fontSize: 14, marginBottom: 56 }}>
+          5.0 average · 500+ reviews on Yelp
+        </p>
+
+        {/* Testimonial card */}
+        <div style={{
+          background: "#fff", borderRadius: 20, padding: "44px 48px",
+          boxShadow: "0 8px 40px oklch(0 0 0 / 0.07)",
+          marginBottom: 32, position: "relative", minHeight: 180
+        }}>
+          <div style={{
+            position: "absolute", top: 28, left: 40,
+            fontFamily: "Georgia,serif", fontSize: 80, lineHeight: 1,
+            color: T.tealLight, userSelect: "none"
+          }}>"</div>
+          <p style={{
+            fontSize: 19, lineHeight: 1.75, color: T.slate,
+            fontStyle: "italic", position: "relative", zIndex: 1,
+            textWrap: "pretty"
+          }}>
+            {reviews[active].text}
+          </p>
+          <div style={{ marginTop: 24, display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
+            <div style={{
+              width: 40, height: 40, borderRadius: "50%",
+              background: T.tealLight, display: "flex", alignItems: "center", justifyContent: "center"
+            }}>
+              <Icon name="users" size={18} color={tweaks.accentColor || T.teal} />
+            </div>
+            <div style={{ textAlign: "left" }}>
+              <div style={{ fontWeight: 700, color: T.slate, fontSize: 15 }}>{reviews[active].name}</div>
+              <div style={{ fontSize: 12, color: T.slateLight }}>Verified Yelp Review</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Dots */}
+        <div style={{ display: "flex", justifyContent: "center", gap: 8 }}>
+          {reviews.map((_, i) =>
+          <button key={i} onClick={() => setActive(i)} style={{
+            width: i === active ? 28 : 10,
+            height: 10, borderRadius: 5, border: "none", cursor: "pointer",
+            background: i === active ? tweaks.accentColor || T.teal : "oklch(0.85 0.02 200)",
+            transition: "all 0.3s ease"
+          }} />
+          )}
+        </div>
+      </div>
+    </section>);
+
+};
+
+// ─── CONTACT / CTA ───────────────────────────────────────────────────────────
+const Contact = ({ tweaks }) => {
+  const [form, setForm] = React.useState({ name: "", email: "", phone: "", message: "", submitted: false });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setForm((s) => ({ ...s, submitted: true }));
+  };
+
+  return (
+    <section id="contact" style={{
+      padding: "100px clamp(20px,6vw,100px)",
+      background: `linear-gradient(135deg, oklch(0.10 0.025 240 / 0.50) 0%, oklch(0.18 0.05 210 / 0.46) 100%), url(${window.__resources.exteriorBg}) center/cover no-repeat`
+    }}>
+      <div style={{
+        maxWidth: 1100, margin: "0 auto",
+        display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start"
+      }}>
+        {/* Left */}
+        <div>
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: 6,
+            color: T.tealMid, fontSize: 12, fontWeight: 700,
+            letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16
+          }}>
+            <Icon name="calendar" size={13} color={T.tealMid} />
+            Get in Touch
+          </div>
+          <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 42, color: "#fff", lineHeight: 1.2, marginBottom: 24 }}>
+            Ready to Love Your Smile?
+          </h2>
+          <p style={{ fontSize: 17, color: "oklch(0.72 0.03 220)", lineHeight: 1.7, marginBottom: 40 }}>
+            New patients are always welcome. Call us, send a message, or drop by our conveniently located San Jose office.
+          </p>
+
+          {[
+          { icon: "phone", label: "Phone", value: "408-295-5651", sub: "Mon–Fri 8am–5pm" },
+          { icon: "map", label: "Location", value: "189 N Bascom Ave", sub: "San Jose, CA 95128" },
+          { icon: "calendar", label: "Appointments", value: "Same-day available", sub: "For dental emergencies" }].
+          map((item) =>
+          <div key={item.label} style={{ display: "flex", gap: 16, marginBottom: 28 }}>
+              <div style={{
+              width: 44, height: 44, borderRadius: 12, flexShrink: 0,
+              background: "oklch(0.52 0.13 192 / 0.18)",
+              border: "1px solid oklch(0.52 0.13 192 / 0.3)",
+              display: "flex", alignItems: "center", justifyContent: "center"
+            }}>
+                <Icon name={item.icon} size={18} color={T.tealMid} />
+              </div>
+              <div>
+                <div style={{ fontSize: 12, color: "oklch(0.60 0.03 220)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em" }}>{item.label}</div>
+                <div style={{ fontSize: 16, color: "#fff", fontWeight: 600, marginTop: 2 }}>{item.value}</div>
+                <div style={{ fontSize: 13, color: "oklch(0.62 0.04 200)" }}>{item.sub}</div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Right form */}
+        <div style={{ background: "#fff", borderRadius: 20, padding: "40px 36px" }}>
+          {form.submitted ?
+          <div style={{ textAlign: "center", padding: "40px 0" }}>
+              <div style={{
+              width: 64, height: 64, borderRadius: "50%",
+              background: T.tealLight, display: "flex", alignItems: "center",
+              justifyContent: "center", margin: "0 auto 20px"
+            }}>
+                <Icon name="check" size={28} color={T.teal} />
+              </div>
+              <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 22, marginBottom: 10, color: T.slate }}>Message Sent!</h3>
+              <p style={{ color: T.slateMid, fontSize: 15 }}>We'll be in touch within one business hour.</p>
+            </div> :
+
+          <>
+              <h3 style={{ fontFamily: "'Playfair Display',serif", fontSize: 22, color: T.slate, marginBottom: 6 }}>Send Us a Message</h3>
+              <p style={{ fontSize: 14, color: T.slateMid, marginBottom: 22 }}>We'll respond within one business hour.</p>
+              <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                <div>
+                  <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: T.slateMid, marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.05em" }}>Full Name</label>
+                  <input
+                    type="text" required placeholder="Jane Smith"
+                    value={form.name}
+                    onChange={(e) => setForm((s) => ({ ...s, name: e.target.value }))}
+                    style={{
+                      width: "100%", padding: "12px 14px", border: `1.5px solid oklch(0.88 0.01 60)`,
+                      borderRadius: 10, fontSize: 15, outline: "none",
+                      fontFamily: "'DM Sans',sans-serif",
+                      background: T.offWhite, color: T.slate, transition: "border-color 0.2s"
+                    }}
+                    onFocus={(e) => e.target.style.borderColor = T.teal}
+                    onBlur={(e) => e.target.style.borderColor = "oklch(0.88 0.01 60)"} />
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: T.slateMid, marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.05em" }}>Email</label>
+                  <input
+                    type="email" required placeholder="jane@example.com"
+                    value={form.email}
+                    onChange={(e) => setForm((s) => ({ ...s, email: e.target.value }))}
+                    style={{
+                      width: "100%", padding: "12px 14px", border: `1.5px solid oklch(0.88 0.01 60)`,
+                      borderRadius: 10, fontSize: 15, outline: "none",
+                      fontFamily: "'DM Sans',sans-serif",
+                      background: T.offWhite, color: T.slate, transition: "border-color 0.2s"
+                    }}
+                    onFocus={(e) => e.target.style.borderColor = T.teal}
+                    onBlur={(e) => e.target.style.borderColor = "oklch(0.88 0.01 60)"} />
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: T.slateMid, marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.05em" }}>Phone (optional)</label>
+                  <input
+                    type="tel" placeholder="(408) 555-0000"
+                    value={form.phone}
+                    onChange={(e) => setForm((s) => ({ ...s, phone: e.target.value }))}
+                    style={{
+                      width: "100%", padding: "12px 14px", border: `1.5px solid oklch(0.88 0.01 60)`,
+                      borderRadius: 10, fontSize: 15, outline: "none",
+                      fontFamily: "'DM Sans',sans-serif",
+                      background: T.offWhite, color: T.slate, transition: "border-color 0.2s"
+                    }}
+                    onFocus={(e) => e.target.style.borderColor = T.teal}
+                    onBlur={(e) => e.target.style.borderColor = "oklch(0.88 0.01 60)"} />
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: 12, fontWeight: 600, color: T.slateMid, marginBottom: 5, textTransform: "uppercase", letterSpacing: "0.05em" }}>Message</label>
+                  <textarea
+                    required placeholder="Tell us how we can help..."
+                    value={form.message}
+                    onChange={(e) => setForm((s) => ({ ...s, message: e.target.value }))}
+                    rows={4}
+                    style={{
+                      width: "100%", padding: "12px 14px", border: `1.5px solid oklch(0.88 0.01 60)`,
+                      borderRadius: 10, fontSize: 15, outline: "none",
+                      fontFamily: "'DM Sans',sans-serif",
+                      background: T.offWhite, color: T.slate, transition: "border-color 0.2s",
+                      resize: "vertical"
+                    }}
+                    onFocus={(e) => e.target.style.borderColor = T.teal}
+                    onBlur={(e) => e.target.style.borderColor = "oklch(0.88 0.01 60)"} />
+                </div>
+                <button type="submit" style={{
+                  background: T.teal, color: "#fff", border: "none", borderRadius: 50,
+                  padding: "15px", fontSize: 16, fontWeight: 600, cursor: "pointer",
+                  fontFamily: "'DM Sans',sans-serif", transition: "opacity 0.2s, transform 0.15s",
+                  display: "flex", alignItems: "center", justifyContent: "center", gap: 8
+                }}
+                onMouseEnter={(e) => {e.currentTarget.style.opacity = "0.88";e.currentTarget.style.transform = "translateY(-1px)";}}
+                onMouseLeave={(e) => {e.currentTarget.style.opacity = "1";e.currentTarget.style.transform = ""}}>
+                  <Icon name="arrow" size={17} color="#fff" />
+                  Send Message
+                </button>
+              </form>
+            </>
+          }
+        </div>
+      </div>
+    </section>);
+
+};
+
+// ─── FOOTER ──────────────────────────────────────────────────────────────────
+const Footer = ({ tweaks }) =>
+<footer style={{
+  background: T.slate, padding: "48px clamp(20px,6vw,100px) 32px",
+  borderTop: `1px solid oklch(0.28 0.02 240)`
+}}>
+    <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+      <div style={{
+      display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: 48, marginBottom: 40
+    }}>
+        <div>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+            <img src={window.__resources.logo} alt="Doug Takeuchi, DDS"
+              style={{ height: 44, width: "auto", display: "block", objectFit: "contain" }} />
+          </div>
+          <p style={{ fontSize: 14, color: "oklch(0.62 0.03 220)", lineHeight: 1.7, maxWidth: 300 }}>
+            Providing comfortable, anxiety-free dental care to San Jose families for over 20 years.
+          </p>
+        </div>
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: "oklch(0.55 0.03 220)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 16 }}>Services</div>
+          {["Cosmetic Dentistry", "Dental Implants", "Sedation", "Family Care", "Periodontics"].map((s) =>
+        <div key={s} style={{ fontSize: 14, color: "oklch(0.70 0.02 220)", marginBottom: 9, cursor: "pointer" }}>{s}</div>
+        )}
+        </div>
+        <div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: "oklch(0.55 0.03 220)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 16 }}>Contact</div>
+          <div style={{ fontSize: 14, color: "oklch(0.70 0.02 220)", marginBottom: 9 }}>408-295-5651</div>
+          <div style={{ fontSize: 14, color: "oklch(0.70 0.02 220)", marginBottom: 9 }}>San Jose, CA</div>
+          <div style={{ fontSize: 14, color: "oklch(0.70 0.02 220)", marginBottom: 9 }}>Mon–Fri: 8am – 5pm</div>
+          <a href="#contact" style={{
+          marginTop: 12, display: "inline-flex", alignItems: "center", gap: 7,
+          background: tweaks.accentColor || T.teal, color: "#fff",
+          padding: "10px 20px", borderRadius: 30, textDecoration: "none",
+          fontSize: 13, fontWeight: 600, transition: "opacity 0.2s"
+        }}
+        onMouseEnter={(e) => e.currentTarget.style.opacity = "0.85"}
+        onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}>
+          
+            <Icon name="calendar" size={13} color="#fff" />
+            Book Appointment
+          </a>
+        </div>
+      </div>
+      <div style={{
+      borderTop: `1px solid oklch(0.28 0.02 240)`, paddingTop: 24,
+      display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12
+    }}>
+        <div style={{ fontSize: 13, color: "oklch(0.48 0.02 220)" }}>
+          © 2026 Doug Takeuchi, DDS · All rights reserved
+        </div>
+        <div style={{ fontSize: 13, color: "oklch(0.48 0.02 220)", display: "flex", gap: 20 }}>
+          <a href="#" style={{ color: "oklch(0.48 0.02 220)", textDecoration: "none", cursor: "pointer" }}>Privacy Policy</a>
+          <a href="#" style={{ color: "oklch(0.48 0.02 220)", textDecoration: "none", cursor: "pointer" }}>Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>;
+
+
+// ─── FLOATING CTA ─────────────────────────────────────────────────────────────
+const FloatingCTA = ({ tweaks }) => {
+  const [visible, setVisible] = React.useState(false);
+  React.useEffect(() => {
+    const fn = () => setVisible(window.scrollY > 400);
+    window.addEventListener("scroll", fn);
+    return () => window.removeEventListener("scroll", fn);
+  }, []);
+  return (
+    <a href="tel:4082955651" style={{
+      position: "fixed", bottom: 28, right: 28, zIndex: 200,
+      background: tweaks.accentColor || T.teal,
+      color: "#fff", borderRadius: 50,
+      padding: "14px 22px",
+      display: "flex", alignItems: "center", gap: 10,
+      textDecoration: "none", fontWeight: 700, fontSize: 15,
+      boxShadow: `0 8px 32px ${tweaks.accentColor || T.teal}66`,
+      transform: visible ? "translateY(0)" : "translateY(120px)",
+      opacity: visible ? 1 : 0,
+      transition: "transform 0.4s cubic-bezier(.34,1.56,.64,1), opacity 0.3s"
+    }}>
+      {/* Pulse ring */}
+      <div style={{ position: "relative", width: 24, height: 24, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{
+          position: "absolute", width: 24, height: 24, borderRadius: "50%",
+          background: `${tweaks.accentColor || T.teal}`,
+          animation: "pulse-ring 1.6s ease-out infinite"
+        }} />
+        <Icon name="phone" size={16} color="#fff" />
+      </div>
+      Call 408-295-5651
+    </a>);
+
+};
+
+// ─── APP ─────────────────────────────────────────────────────────────────────
+const App = () => {
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  return (
+    <>
+      <Banner tweaks={tweaks} />
+      <Nav tweaks={tweaks} />
+      <Hero tweaks={tweaks} />
+      <TrustBar />
+      <Services tweaks={tweaks} />
+      <About tweaks={tweaks} />
+      <Reviews tweaks={tweaks} />
+      <Contact tweaks={tweaks} />
+      <Footer tweaks={tweaks} />
+      <FloatingCTA tweaks={tweaks} />
+
+      <TweaksPanel>
+        <TweakSection label="Branding" />
+        <TweakColor label="Accent Color" value={tweaks.accentColor} onChange={(v) => setTweak("accentColor", v)} />
+        <TweakSection label="Hero" />
+        <TweakText label="Headline" value={tweaks.heroHeadline} onChange={(v) => setTweak("heroHeadline", v)} />
+        <TweakText label="CTA Button" value={tweaks.ctaLabel} onChange={(v) => setTweak("ctaLabel", v)} />
+        <TweakToggle label="Top Promo Banner" value={tweaks.showBanner} onChange={(v) => setTweak("showBanner", v)} />
+        <TweakSection label="Typography" />
+        <TweakText label="Heading Font" value={tweaks.font} onChange={(v) => setTweak("font", v)} />
+      </TweaksPanel>
+    </>);
+
+};
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
