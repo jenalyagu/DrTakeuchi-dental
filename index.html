@@ -639,24 +639,6 @@ const About = ({ tweaks }) =>
           <img src="uploads/DTakeuchiHeadshot.jpeg" alt="Dr. Doug Takeuchi, DDS"
         style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }} />
         </div>
-        {/* Floating badge */}
-        <div style={{
-        position: "absolute", bottom: 28, right: -24,
-        background: "#fff", borderRadius: 16, padding: "16px 22px",
-        boxShadow: "0 12px 40px oklch(0 0 0 / 0.14)",
-        display: "flex", alignItems: "center", gap: 14
-      }}>
-          <div style={{
-          width: 44, height: 44, borderRadius: "50%",
-          background: T.tealLight, display: "flex", alignItems: "center", justifyContent: "center"
-        }}>
-            <Icon name="shield" size={20} color={tweaks.accentColor || T.teal} />
-          </div>
-          <div>
-            <div style={{ fontSize: 12, color: T.slateLight, fontWeight: 500 }}>ADA Member</div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: T.slate }}>Board Certified DDS</div>
-          </div>
-        </div>
         {/* Stars badge */}
         <div style={{
         position: "absolute", top: 28, left: -24,
@@ -718,7 +700,7 @@ const About = ({ tweaks }) =>
       onMouseEnter={(e) => {e.currentTarget.style.opacity = "0.88";e.currentTarget.style.transform = "translateY(-1px)";}}
       onMouseLeave={(e) => {e.currentTarget.style.opacity = "1";e.currentTarget.style.transform = "";}}>
         
-          Meet Dr. Takeuchi
+          Book a Consultation
           <Icon name="arrow" size={15} color="#fff" />
         </a>
       </div>
@@ -733,77 +715,123 @@ const reviews = [
 { name: "Jeff T.", text: "Our family has been going to Dr. Takeuchi for years. Doug is a great dentist and always makes us feel comfortable. His staff is fantastic. The office is clean and modern.", stars: 5 },
 { name: "Quynh P.", text: "Been to many dentists, he's the best. Don't know how else to say it. Cool equipment. Explains everything in detail and shows you pictures while telling the story.", stars: 5 },
 { name: "Mike L.", text: "I can honestly say that thanks to Dr. Takeuchi and his staff, a dentist appointment is an activity I no longer dread. That says a lot.", stars: 5 },
-{ name: "Insightful G.", text: "One of the very few dentists I know that personally answers patient email inquiries, and responds very quickly. He clearly cares a great deal about his business and patients.", stars: 5 }];
+{ name: "David M.", text: "One of the very few dentists I know that personally answers patient email inquiries, and responds very quickly. He clearly cares a great deal about his business and patients.", stars: 5 }];
 
+
+// ─── BEFORE / AFTER GALLERY ──────────────────────────────────────────────────
+const Gallery = ({ tweaks }) =>
+<section style={{ padding: "100px clamp(20px,6vw,100px)", background: T.slate }}>
+  <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+    <div style={{ textAlign: "center", marginBottom: 56 }}>
+      <div style={{
+        display: "inline-flex", alignItems: "center", gap: 6,
+        color: T.tealMid, fontSize: 12, fontWeight: 700,
+        letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 14
+      }}>
+        <Icon name="sparkle" size={13} color={T.tealMid} />
+        Real Patient Results
+      </div>
+      <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 40, color: "#fff", lineHeight: 1.2 }}>
+        Smile Transformations
+      </h2>
+      <p style={{ fontSize: 17, color: "oklch(0.62 0.03 220)", marginTop: 16, maxWidth: 480, margin: "16px auto 0" }}>
+        See what's possible with cosmetic dentistry at Dr. Takeuchi's practice.
+      </p>
+    </div>
+    <div style={{ borderRadius: 20, overflow: "hidden", boxShadow: "0 24px 80px oklch(0 0 0 / 0.4)" }}>
+      <img
+        src="uploads/BeforeAfter-Whitening.jpeg"
+        alt="Teeth whitening before and after results"
+        style={{ width: "100%", display: "block", objectFit: "cover" }}
+      />
+    </div>
+    <div style={{ textAlign: "center", marginTop: 40 }}>
+      <a href="#contact" style={{
+        display: "inline-flex", alignItems: "center", gap: 9,
+        background: tweaks.accentColor || T.teal, color: "#fff",
+        padding: "14px 32px", borderRadius: 50, textDecoration: "none",
+        fontWeight: 600, fontSize: 15, transition: "opacity 0.2s, transform 0.15s"
+      }}
+      onMouseEnter={(e) => {e.currentTarget.style.opacity = "0.88"; e.currentTarget.style.transform = "translateY(-1px)";}}
+      onMouseLeave={(e) => {e.currentTarget.style.opacity = "1"; e.currentTarget.style.transform = "";}}>
+        Get Your Smile Transformation
+        <Icon name="arrow" size={15} color="#fff" />
+      </a>
+    </div>
+  </div>
+</section>;
+
+
+const ReviewCard = ({ review, tweaks }) => (
+  <div style={{
+    background: "#fff", borderRadius: 16, padding: "32px 28px",
+    boxShadow: "0 4px 24px oklch(0 0 0 / 0.06)",
+    display: "flex", flexDirection: "column", gap: 16, flex: 1
+  }}>
+    <div style={{ display: "flex", gap: 2 }}>
+      {[1,2,3,4,5].map((i) => <Icon key={i} name="star" size={14} color={T.gold} />)}
+    </div>
+    <p style={{ fontSize: 15, lineHeight: 1.75, color: T.slate, fontStyle: "italic", flex: 1 }}>
+      "{review.text}"
+    </p>
+    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <div style={{
+        width: 36, height: 36, borderRadius: "50%",
+        background: T.tealLight, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0
+      }}>
+        <Icon name="users" size={16} color={tweaks.accentColor || T.teal} />
+      </div>
+      <div>
+        <div style={{ fontWeight: 700, color: T.slate, fontSize: 14 }}>{review.name}</div>
+        <div style={{ fontSize: 12, color: T.slateLight }}>Verified Yelp Review</div>
+      </div>
+    </div>
+  </div>
+);
 
 const Reviews = ({ tweaks }) => {
-  const [active, setActive] = React.useState(0);
+  const [page, setPage] = React.useState(0);
+  const perPage = 3;
+  const pages = Math.ceil(reviews.length / perPage);
+  const visible = reviews.slice(page * perPage, page * perPage + perPage);
 
   return (
     <section id="reviews" style={{
       padding: "100px clamp(20px,6vw,100px)",
       background: T.offWhite
     }}>
-      <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
-        <div style={{
-          display: "inline-flex", alignItems: "center", gap: 6,
-          color: tweaks.accentColor || T.teal, fontSize: 12, fontWeight: 700,
-          letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 14
-        }}>
-          <Icon name="star" size={13} color={tweaks.accentColor || T.teal} />
-          Patient Reviews
-        </div>
-        <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 40, color: T.slate, marginBottom: 16 }}>
-          What San Jose Patients Say
-        </h2>
-        <div style={{ display: "flex", justifyContent: "center", gap: 3, marginBottom: 8 }}>
-          {[1, 2, 3, 4, 5].map((i) => <Icon key={i} name="star" size={20} color={T.gold} />)}
-        </div>
-        <p style={{ color: T.slateLight, fontSize: 14, marginBottom: 56 }}>
-          5.0 average · 500+ reviews on Yelp
-        </p>
-
-        {/* Testimonial card */}
-        <div style={{
-          background: "#fff", borderRadius: 20, padding: "44px 48px",
-          boxShadow: "0 8px 40px oklch(0 0 0 / 0.07)",
-          marginBottom: 32, position: "relative", minHeight: 180
-        }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: 56 }}>
           <div style={{
-            position: "absolute", top: 28, left: 40,
-            fontFamily: "Georgia,serif", fontSize: 80, lineHeight: 1,
-            color: T.tealLight, userSelect: "none"
-          }}>"</div>
-          <p style={{
-            fontSize: 19, lineHeight: 1.75, color: T.slate,
-            fontStyle: "italic", position: "relative", zIndex: 1,
-            textWrap: "pretty"
+            display: "inline-flex", alignItems: "center", gap: 6,
+            color: tweaks.accentColor || T.teal, fontSize: 12, fontWeight: 700,
+            letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 14
           }}>
-            {reviews[active].text}
-          </p>
-          <div style={{ marginTop: 24, display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
-            <div style={{
-              width: 40, height: 40, borderRadius: "50%",
-              background: T.tealLight, display: "flex", alignItems: "center", justifyContent: "center"
-            }}>
-              <Icon name="users" size={18} color={tweaks.accentColor || T.teal} />
-            </div>
-            <div style={{ textAlign: "left" }}>
-              <div style={{ fontWeight: 700, color: T.slate, fontSize: 15 }}>{reviews[active].name}</div>
-              <div style={{ fontSize: 12, color: T.slateLight }}>Verified Yelp Review</div>
-            </div>
+            <Icon name="star" size={13} color={tweaks.accentColor || T.teal} />
+            Patient Reviews
           </div>
+          <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 40, color: T.slate, marginBottom: 16 }}>
+            What San Jose Patients Say
+          </h2>
+          <div style={{ display: "flex", justifyContent: "center", gap: 3, marginBottom: 8 }}>
+            {[1,2,3,4,5].map((i) => <Icon key={i} name="star" size={20} color={T.gold} />)}
+          </div>
+          <p style={{ color: T.slateLight, fontSize: 14 }}>
+            5.0 average · <a href="https://www.yelp.com/biz/doug-takeuchi-dds-san-jose" target="_blank" rel="noopener noreferrer" style={{ color: T.teal, textDecoration: "none", fontWeight: 600 }}>500+ reviews on Yelp ↗</a>
+          </p>
         </div>
 
-        {/* Dots */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24, marginBottom: 40 }}>
+          {visible.map((r) => <ReviewCard key={r.name} review={r} tweaks={tweaks} />)}
+        </div>
+
         <div style={{ display: "flex", justifyContent: "center", gap: 8 }}>
-          {reviews.map((_, i) =>
-          <button key={i} onClick={() => setActive(i)} style={{
-            width: i === active ? 28 : 10,
-            height: 10, borderRadius: 5, border: "none", cursor: "pointer",
-            background: i === active ? tweaks.accentColor || T.teal : "oklch(0.85 0.02 200)",
-            transition: "all 0.3s ease"
-          }} />
+          {Array.from({ length: pages }).map((_, i) =>
+            <button key={i} onClick={() => setPage(i)} style={{
+              width: i === page ? 28 : 10, height: 10, borderRadius: 5, border: "none", cursor: "pointer",
+              background: i === page ? tweaks.accentColor || T.teal : "oklch(0.85 0.02 200)",
+              transition: "all 0.3s ease"
+            }} />
           )}
         </div>
       </div>
@@ -850,9 +878,9 @@ const Contact = ({ tweaks }) => {
           </p>
 
           {[
-          { icon: "phone", label: "Phone", value: "408-295-5651", sub: "Mon–Fri 8am–5pm" },
-          { icon: "map", label: "Location", value: "189 N Bascom Ave", sub: "San Jose, CA 95128" },
-          { icon: "calendar", label: "Appointments", value: "Same-day available", sub: "For dental emergencies" }].
+          { icon: "phone", label: "Phone", value: "408-295-5651", sub: "Mon–Fri 8am–5pm", href: "tel:4082955651" },
+          { icon: "map", label: "Location", value: "189 N Bascom Ave", sub: "San Jose, CA 95128", href: "https://maps.google.com/?q=189+N+Bascom+Ave+San+Jose+CA+95128" },
+          { icon: "calendar", label: "Appointments", value: "Same-day available", sub: "For dental emergencies", href: "#contact" }].
           map((item) =>
           <div key={item.label} style={{ display: "flex", gap: 16, marginBottom: 28 }}>
               <div style={{
@@ -865,11 +893,23 @@ const Contact = ({ tweaks }) => {
               </div>
               <div>
                 <div style={{ fontSize: 12, color: "oklch(0.60 0.03 220)", fontWeight: 500, textTransform: "uppercase", letterSpacing: "0.05em" }}>{item.label}</div>
-                <div style={{ fontSize: 16, color: "#fff", fontWeight: 600, marginTop: 2 }}>{item.value}</div>
+                <a href={item.href} target={item.href.startsWith("http") ? "_blank" : "_self"} rel="noopener noreferrer"
+                  style={{ fontSize: 16, color: "#fff", fontWeight: 600, marginTop: 2, display: "block", textDecoration: "none" }}>
+                  {item.value}
+                </a>
                 <div style={{ fontSize: 13, color: "oklch(0.62 0.04 200)" }}>{item.sub}</div>
               </div>
             </div>
           )}
+
+          {/* Google Maps embed */}
+          <div style={{ borderRadius: 16, overflow: "hidden", marginTop: 8 }}>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3172.3!2d-121.9313!3d37.3195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808e34a3b6e7b9c3%3A0x1b2e3f4a5b6c7d8e!2s189%20N%20Bascom%20Ave%2C%20San%20Jose%2C%20CA%2095128!5e0!3m2!1sen!2sus!4v1"
+              width="100%" height="200" style={{ border: 0, display: "block" }}
+              allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
         </div>
 
         {/* Right form */}
@@ -995,13 +1035,13 @@ const Footer = ({ tweaks }) =>
         <div>
           <div style={{ fontSize: 12, fontWeight: 700, color: "oklch(0.55 0.03 220)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 16 }}>Services</div>
           {["Cosmetic Dentistry", "Dental Implants", "Sedation", "Family Care", "Periodontics"].map((s) =>
-        <div key={s} style={{ fontSize: 14, color: "oklch(0.70 0.02 220)", marginBottom: 9, cursor: "pointer" }}>{s}</div>
+        <a key={s} href="#services" style={{ fontSize: 14, color: "oklch(0.70 0.02 220)", marginBottom: 9, display: "block", textDecoration: "none", cursor: "pointer" }}>{s}</a>
         )}
         </div>
         <div>
           <div style={{ fontSize: 12, fontWeight: 700, color: "oklch(0.55 0.03 220)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 16 }}>Contact</div>
-          <div style={{ fontSize: 14, color: "oklch(0.70 0.02 220)", marginBottom: 9 }}>408-295-5651</div>
-          <div style={{ fontSize: 14, color: "oklch(0.70 0.02 220)", marginBottom: 9 }}>San Jose, CA</div>
+          <a href="tel:4082955651" style={{ fontSize: 14, color: "oklch(0.70 0.02 220)", marginBottom: 9, display: "block", textDecoration: "none" }}>408-295-5651</a>
+          <a href="https://maps.google.com/?q=189+N+Bascom+Ave+San+Jose+CA+95128" target="_blank" rel="noopener noreferrer" style={{ fontSize: 14, color: "oklch(0.70 0.02 220)", marginBottom: 9, display: "block", textDecoration: "none" }}>189 N Bascom Ave, San Jose</a>
           <div style={{ fontSize: 14, color: "oklch(0.70 0.02 220)", marginBottom: 9 }}>Mon–Fri: 8am – 5pm</div>
           <a href="#contact" style={{
           marginTop: 12, display: "inline-flex", alignItems: "center", gap: 7,
@@ -1024,9 +1064,11 @@ const Footer = ({ tweaks }) =>
         <div style={{ fontSize: 13, color: "oklch(0.48 0.02 220)" }}>
           © 2026 Doug Takeuchi, DDS · All rights reserved
         </div>
-        <div style={{ fontSize: 13, color: "oklch(0.48 0.02 220)", display: "flex", gap: 20 }}>
-          <a href="#" style={{ color: "oklch(0.48 0.02 220)", textDecoration: "none", cursor: "pointer" }}>Privacy Policy</a>
-          <a href="#" style={{ color: "oklch(0.48 0.02 220)", textDecoration: "none", cursor: "pointer" }}>Sitemap</a>
+        <div style={{ fontSize: 13, color: "oklch(0.48 0.02 220)", display: "flex", gap: 20, alignItems: "center" }}>
+          <a href="https://www.yelp.com/biz/doug-takeuchi-dds-san-jose" target="_blank" rel="noopener noreferrer"
+            style={{ color: "oklch(0.60 0.04 200)", textDecoration: "none", fontWeight: 600 }}>
+            ★ Read Our Yelp Reviews
+          </a>
         </div>
       </div>
     </div>
@@ -1080,6 +1122,7 @@ const App = () => {
       <TrustBar />
       <Services tweaks={tweaks} />
       <About tweaks={tweaks} />
+      <Gallery tweaks={tweaks} />
       <Reviews tweaks={tweaks} />
       <Contact tweaks={tweaks} />
       <Footer tweaks={tweaks} />
