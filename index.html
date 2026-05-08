@@ -38,6 +38,7 @@
   <script type="text/babel">
 
 const FORMSPREE = "https://formspree.io/f/xrejyeko";
+const encode = (data) => Object.keys(data).map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(data[k])).join("&");
 
 const TWEAK_DEFAULTS = {
   accentColor: "#2a9d8f",
@@ -237,8 +238,8 @@ const Hero = ({ tweaks }) => {
     e.preventDefault();
     fetch(FORMSPREE, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ form: "Appointment Request", name: formState.name, phone: formState.phone, service: formState.service })
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encode({ form: "Appointment Request", name: formState.name, phone: formState.phone, service: formState.service })
     }).finally(() => setFormState((s) => ({ ...s, submitted: true })));
   };
 
@@ -817,8 +818,8 @@ const Contact = ({ tweaks }) => {
     e.preventDefault();
     fetch(FORMSPREE, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ form: "Contact", name: form.name, email: form.email, phone: form.phone, message: form.message })
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encode({ form: "Contact", name: form.name, email: form.email, phone: form.phone, message: form.message })
     }).finally(() => setForm((s) => ({ ...s, submitted: true })));
   };
 
