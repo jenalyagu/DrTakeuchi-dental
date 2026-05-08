@@ -35,18 +35,15 @@
 </head>
 <body>
   <div id="root"></div>
-  <script type="text/babel" src="tweaks-panel.jsx"></script>
   <script type="text/babel">
 
-
-
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "accentColor": "#2a9d8f",
-  "heroHeadline": "Your Smile Deserves a Doctor You Trust",
-  "showBanner": true,
-  "ctaLabel": "Book a Free Consultation",
-  "font": "Playfair Display"
-} /*EDITMODE-END*/;
+const TWEAK_DEFAULTS = {
+  accentColor: "#2a9d8f",
+  heroHeadline: "Your Smile Deserves a Doctor You Trust",
+  showBanner: true,
+  ctaLabel: "Book a Free Consultation",
+  font: "Playfair Display"
+};
 
 // ─── TOKENS ──────────────────────────────────────────────────────────────────
 const T = {
@@ -104,8 +101,7 @@ const Banner = ({ tweaks }) => {
       display: "flex", alignItems: "center", justifyContent: "center", gap: 12,
       position: "relative"
     }}>
-      <Icon name="sparkle" size={16} color="#fff" />
-      New patients welcome — book this month and receive a <strong style={{ marginLeft: 4 }}>complimentary whitening consult</strong>
+      ✦ New patients welcome — book this month and receive a <strong>complimentary whitening consult</strong> ✦
       <button onClick={() => setShow(false)} style={{
         position: "absolute", right: 16, background: "none", border: "none",
         color: "#fff", cursor: "pointer", opacity: 0.8, lineHeight: 1
@@ -1062,7 +1058,7 @@ const FloatingCTA = ({ tweaks }) => {
 
 // ─── APP ─────────────────────────────────────────────────────────────────────
 const App = () => {
-  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const tweaks = TWEAK_DEFAULTS;
 
   return (
     <>
@@ -1077,16 +1073,6 @@ const App = () => {
       <Footer tweaks={tweaks} />
       <FloatingCTA tweaks={tweaks} />
 
-      <TweaksPanel>
-        <TweakSection label="Branding" />
-        <TweakColor label="Accent Color" value={tweaks.accentColor} onChange={(v) => setTweak("accentColor", v)} />
-        <TweakSection label="Hero" />
-        <TweakText label="Headline" value={tweaks.heroHeadline} onChange={(v) => setTweak("heroHeadline", v)} />
-        <TweakText label="CTA Button" value={tweaks.ctaLabel} onChange={(v) => setTweak("ctaLabel", v)} />
-        <TweakToggle label="Top Promo Banner" value={tweaks.showBanner} onChange={(v) => setTweak("showBanner", v)} />
-        <TweakSection label="Typography" />
-        <TweakText label="Heading Font" value={tweaks.font} onChange={(v) => setTweak("font", v)} />
-      </TweaksPanel>
     </>);
 
 };
