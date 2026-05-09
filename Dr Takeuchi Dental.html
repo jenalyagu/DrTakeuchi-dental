@@ -10,6 +10,12 @@
   <meta name="ext-resource-dependency" content="uploads/DTakeuchiHeadshot.jpeg" data-resource-id="headshot" />
   <meta name="ext-resource-dependency" content="uploads/TakeuchiExterior.png" data-resource-id="exteriorBg" />
   <meta name="ext-resource-dependency" content="uploads/Screenshot 2026-04-26 at 12.32.55 PM.png" data-resource-id="mapImg" />
+  <meta name="ext-resource-dependency" content="uploads/DrWPatient.jpeg" data-resource-id="drWPatient" />
+  <meta name="ext-resource-dependency" content="uploads/DrWPatient2.jpeg" data-resource-id="drWPatient2" />
+  <meta name="ext-resource-dependency" content="uploads/BeforeAfter-Whitening.jpeg" data-resource-id="beforeAfter" />
+  <meta name="ext-resource-dependency" content="uploads/TakeuchiTeamShot.jpeg" data-resource-id="teamShot" />
+  <meta name="ext-resource-dependency" content="uploads/TakeuchiOfficeExterior.jpeg" data-resource-id="officeExterior" />
+  <meta name="ext-resource-dependency" content="uploads/Parentchild-Waitingroom.jpeg" data-resource-id="waitingRoom" />
   <template id="__bundler_thumbnail" data-bg-color="#fcfaf8">
     <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
       <rect width="200" height="200" fill="#fcfaf8"/>
@@ -1072,6 +1078,95 @@ const FloatingCTA = ({ tweaks }) => {
 
 };
 
+// ─── GALLERY ─────────────────────────────────────────────────────────────────
+const Gallery = ({ tweaks }) =>
+<section style={{ padding: "100px clamp(20px,6vw,100px)", background: T.slate }}>
+  <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+    <div style={{ textAlign: "center", marginBottom: 56 }}>
+      <div style={{
+        display: "inline-flex", alignItems: "center", gap: 6,
+        color: T.tealMid, fontSize: 12, fontWeight: 700,
+        letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 14
+      }}>
+        <Icon name="sparkle" size={13} color={T.tealMid} />
+        Real Patient Results
+      </div>
+      <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 40, color: "#fff", lineHeight: 1.2 }}>
+        Smile Transformations
+      </h2>
+      <p style={{ fontSize: 17, color: "oklch(0.62 0.03 220)", marginTop: 16, maxWidth: 480, margin: "16px auto 0" }}>
+        See what's possible with cosmetic dentistry at Dr. Takeuchi's practice.
+      </p>
+    </div>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
+      <div style={{ borderRadius: 20, overflow: "hidden", boxShadow: "0 24px 80px oklch(0 0 0 / 0.4)" }}>
+        <img src={window.__resources.beforeAfter} alt="Teeth whitening before and after results"
+          style={{ width: "100%", height: "100%", display: "block", objectFit: "cover" }} />
+      </div>
+      <div style={{ borderRadius: 20, overflow: "hidden", boxShadow: "0 24px 80px oklch(0 0 0 / 0.4)" }}>
+        <img src={window.__resources.drWPatient2} alt="Patient admiring her new smile after treatment with Dr. Takeuchi"
+          style={{ width: "100%", height: "100%", display: "block", objectFit: "cover" }} />
+      </div>
+      <div style={{ borderRadius: 20, overflow: "hidden", boxShadow: "0 24px 80px oklch(0 0 0 / 0.4)" }}>
+        <img src={window.__resources.drWPatient} alt="Dr. Takeuchi with a happy patient"
+          style={{ width: "100%", height: "100%", display: "block", objectFit: "cover" }} />
+      </div>
+    </div>
+    <div style={{ textAlign: "center", marginTop: 40 }}>
+      <a href="#contact" style={{
+        display: "inline-flex", alignItems: "center", gap: 9,
+        background: tweaks.accentColor || T.teal, color: "#fff",
+        padding: "14px 32px", borderRadius: 50, textDecoration: "none",
+        fontWeight: 600, fontSize: 15, transition: "opacity 0.2s, transform 0.15s"
+      }}
+      onMouseEnter={(e) => {e.currentTarget.style.opacity = "0.88"; e.currentTarget.style.transform = "translateY(-1px)";}}
+      onMouseLeave={(e) => {e.currentTarget.style.opacity = "1"; e.currentTarget.style.transform = "";}}>
+        Get Your Smile Transformation
+        <Icon name="arrow" size={15} color="#fff" />
+      </a>
+    </div>
+  </div>
+</section>;
+
+
+// ─── OFFICE PHOTOS ───────────────────────────────────────────────────────────
+const OfficePhotos = ({ tweaks }) =>
+<section style={{ padding: "80px clamp(20px,6vw,100px)", background: T.offWhite }}>
+  <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+    <div style={{ textAlign: "center", marginBottom: 48 }}>
+      <div style={{
+        display: "inline-flex", alignItems: "center", gap: 6,
+        color: tweaks.accentColor || T.teal, fontSize: 12, fontWeight: 700,
+        letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 14
+      }}>
+        <Icon name="users" size={13} color={tweaks.accentColor || T.teal} />
+        Our Practice
+      </div>
+      <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 36, color: T.slate, lineHeight: 1.2 }}>
+        A Welcoming Home for Your Smile
+      </h2>
+    </div>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
+      {[
+        { src: window.__resources.teamShot, alt: "Dr. Takeuchi and the dental team", caption: "Our Team" },
+        { src: window.__resources.officeExterior, alt: "Doug Takeuchi DDS office at 189 N Bascom Ave, San Jose", caption: "Our Office" },
+        { src: window.__resources.waitingRoom, alt: "Family reading together in the waiting room", caption: "Family Friendly" }
+      ].map(({ src, alt, caption }) =>
+        <div key={caption} style={{ borderRadius: 20, overflow: "hidden", position: "relative", boxShadow: "0 8px 32px oklch(0 0 0 / 0.10)" }}>
+          <img src={src} alt={alt} style={{ width: "100%", aspectRatio: "4/3", objectFit: "cover", display: "block" }} />
+          <div style={{
+            position: "absolute", bottom: 0, left: 0, right: 0,
+            background: "linear-gradient(to top, oklch(0.12 0.02 240 / 0.74) 0%, transparent 100%)",
+            padding: "32px 20px 16px",
+            fontSize: 15, fontWeight: 600, color: "#fff", letterSpacing: "0.02em"
+          }}>{caption}</div>
+        </div>
+      )}
+    </div>
+  </div>
+</section>;
+
+
 // ─── APP ─────────────────────────────────────────────────────────────────────
 const App = () => {
   const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
@@ -1084,6 +1179,8 @@ const App = () => {
       <TrustBar />
       <Services tweaks={tweaks} />
       <About tweaks={tweaks} />
+      <Gallery tweaks={tweaks} />
+      <OfficePhotos tweaks={tweaks} />
       <Reviews tweaks={tweaks} />
       <Contact tweaks={tweaks} />
       <Footer tweaks={tweaks} />

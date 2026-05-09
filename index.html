@@ -568,13 +568,13 @@ const AEOBlock = ({ tweaks }) =>
       letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 16
     }}>
       <Icon name="sparkle" size={13} color={tweaks.accentColor || T.teal} />
-      San Jose Dental Care
+      Every Patient. Every Need.
     </div>
     <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 32, color: T.slate, lineHeight: 1.3, marginBottom: 20 }}>
       What kind of dental care do you need?
     </h2>
     <p style={{ fontSize: 17, color: T.slateMid, lineHeight: 1.8, marginBottom: 32 }}>
-      Looking for a San Jose dentist who offers gentle family dentistry, cosmetic smile improvements, tooth repair, dental implants, sedation dentistry, and emergency dental care? Dr. Doug Takeuchi, DDS provides comprehensive dental care for adults, children, and families in San Jose, CA.
+      Maybe it's been a while. Maybe you're nervous about what you'll find. Maybe you just moved to San Jose and need a dentist you can actually trust. Whatever brought you here, Dr. Takeuchi's practice is built to handle it — from routine checkups and kids' first visits to cosmetic makeovers, dental implants, sedation for anxious patients, and same-day emergency care.
     </p>
     <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 10 }}>
       {["Family Dentistry","Cosmetic Dentistry","Dental Implants","Teeth Whitening","Sedation Dentistry","Emergency Care","Root Canals","Veneers","Children's Dentistry","Restorative Dentistry"].map((tag) =>
@@ -824,12 +824,28 @@ const Gallery = ({ tweaks }) =>
         See what's possible with cosmetic dentistry at Dr. Takeuchi's practice.
       </p>
     </div>
-    <div style={{ borderRadius: 20, overflow: "hidden", boxShadow: "0 24px 80px oklch(0 0 0 / 0.4)" }}>
-      <img
-        src="uploads/BeforeAfter-Whitening.jpeg"
-        alt="Teeth whitening before and after results"
-        style={{ width: "100%", display: "block", objectFit: "cover" }}
-      />
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
+      <div style={{ borderRadius: 20, overflow: "hidden", boxShadow: "0 24px 80px oklch(0 0 0 / 0.4)" }}>
+        <img
+          src="uploads/BeforeAfter-Whitening.jpeg"
+          alt="Teeth whitening before and after results"
+          style={{ width: "100%", height: "100%", display: "block", objectFit: "cover" }}
+        />
+      </div>
+      <div style={{ borderRadius: 20, overflow: "hidden", boxShadow: "0 24px 80px oklch(0 0 0 / 0.4)" }}>
+        <img
+          src="uploads/DrWPatient2.jpeg"
+          alt="Patient admiring her new smile after treatment with Dr. Takeuchi"
+          style={{ width: "100%", height: "100%", display: "block", objectFit: "cover" }}
+        />
+      </div>
+      <div style={{ borderRadius: 20, overflow: "hidden", boxShadow: "0 24px 80px oklch(0 0 0 / 0.4)" }}>
+        <img
+          src="uploads/DrWPatient.jpeg"
+          alt="Dr. Takeuchi with a happy patient"
+          style={{ width: "100%", height: "100%", display: "block", objectFit: "cover" }}
+        />
+      </div>
     </div>
     <div style={{ textAlign: "center", marginTop: 40 }}>
       <a href="#contact" style={{
@@ -1351,6 +1367,44 @@ const FloatingCTA = ({ tweaks }) => {
 };
 
 // ─── APP ─────────────────────────────────────────────────────────────────────
+// ─── OFFICE PHOTOS ───────────────────────────────────────────────────────────
+const OfficePhotos = ({ tweaks }) =>
+<section style={{ padding: "80px clamp(20px,6vw,100px)", background: T.offWhite }}>
+  <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+    <div style={{ textAlign: "center", marginBottom: 48 }}>
+      <div style={{
+        display: "inline-flex", alignItems: "center", gap: 6,
+        color: tweaks.accentColor || T.teal, fontSize: 12, fontWeight: 700,
+        letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 14
+      }}>
+        <Icon name="users" size={13} color={tweaks.accentColor || T.teal} />
+        Our Practice
+      </div>
+      <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 36, color: T.slate, lineHeight: 1.2 }}>
+        A Welcoming Home for Your Smile
+      </h2>
+    </div>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
+      {[
+        { src: "uploads/TakeuchiTeamShot.jpeg", alt: "Dr. Takeuchi and the dental team", caption: "Our Team" },
+        { src: "uploads/TakeuchiOfficeExterior.jpeg", alt: "Doug Takeuchi DDS office at 189 N Bascom Ave, San Jose", caption: "Our Office" },
+        { src: "uploads/Parentchild-Waitingroom.jpeg", alt: "Family reading together in the waiting room", caption: "Family Friendly" }
+      ].map(({ src, alt, caption }) =>
+        <div key={src} style={{ borderRadius: 20, overflow: "hidden", position: "relative", boxShadow: "0 8px 32px oklch(0 0 0 / 0.10)" }}>
+          <img src={src} alt={alt} style={{ width: "100%", aspectRatio: "4/3", objectFit: "cover", display: "block" }} />
+          <div style={{
+            position: "absolute", bottom: 0, left: 0, right: 0,
+            background: "linear-gradient(to top, oklch(0.12 0.02 240 / 0.74) 0%, transparent 100%)",
+            padding: "32px 20px 16px",
+            fontSize: 15, fontWeight: 600, color: "#fff", letterSpacing: "0.02em"
+          }}>{caption}</div>
+        </div>
+      )}
+    </div>
+  </div>
+</section>;
+
+
 const App = () => {
   const tweaks = TWEAK_DEFAULTS;
 
@@ -1366,6 +1420,7 @@ const App = () => {
       <Gallery tweaks={tweaks} />
       <Reviews tweaks={tweaks} />
       <LocalSEO tweaks={tweaks} />
+      <OfficePhotos tweaks={tweaks} />
       <FAQ tweaks={tweaks} />
       <Contact tweaks={tweaks} />
       <Footer tweaks={tweaks} />
