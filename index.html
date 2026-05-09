@@ -167,7 +167,7 @@ const Banner = ({ tweaks }) => {
       display: "flex", alignItems: "center", justifyContent: "center", gap: 12,
       position: "relative"
     }}>
-      <span>✦ New patients welcome — book this month and receive a <strong>complimentary whitening consult</strong> ✦</span>
+      <span>✦ New patients welcome — book this month and receive a <strong>free consultation</strong> ✦</span>
       <button onClick={() => setShow(false)} style={{
         position: "absolute", right: 16, background: "none", border: "none",
         color: "#fff", cursor: "pointer", opacity: 0.8, lineHeight: 1
@@ -295,7 +295,7 @@ const Nav = ({ tweaks }) => {
 // ─── HERO ────────────────────────────────────────────────────────────────────
 const Hero = ({ tweaks }) => {
   const [formState, setFormState] = React.useState({ name: "", phone: "", service: "", submitted: false });
-  const services = ["Teeth Whitening", "Dental Implants", "Invisalign®", "Sedation Dentistry", "General Checkup", "Emergency Care"];
+  const services = ["Teeth Whitening", "Dental Implants", "Sedation Dentistry", "General Checkup", "Emergency Care"];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -832,13 +832,13 @@ const Gallery = ({ tweaks }) =>
         letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 14
       }}>
         <Icon name="sparkle" size={13} color={T.tealMid} />
-        Real Patient Results
+        Our Patients
       </div>
       <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 40, color: "#fff", lineHeight: 1.2 }}>
-        Smile Transformations
+        Healthy Smiles, Happy Patients
       </h2>
       <p style={{ fontSize: 17, color: "oklch(0.62 0.03 220)", marginTop: 16, maxWidth: 480, margin: "16px auto 0" }}>
-        See what's possible with cosmetic dentistry at Dr. Takeuchi's practice.
+        A glimpse into the care and results Dr. Takeuchi delivers every day.
       </p>
     </div>
     <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
