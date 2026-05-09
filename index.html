@@ -547,7 +547,7 @@ const TrustBar = () =>
     { icon: "users", label: "All Ages Welcome" },
     { icon: "calendar", label: "Same-Day Emergencies" },
     { icon: "smile", label: "Financing Available" },
-    { icon: "map", label: "Downtown San Jose" }].
+    { icon: "calendar", label: "Mon–Fri · 8am–5pm" }].
     map(({ icon, label }) =>
     <div key={label} style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <Icon name={icon} size={18} color={T.tealMid} />
@@ -777,6 +777,23 @@ const About = ({ tweaks }) =>
         )}
         </div>
 
+        <div style={{ borderTop: `1px solid oklch(0.91 0.01 60)`, paddingTop: 24, marginBottom: 32 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: T.slateLight, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>
+            Education &amp; Credentials
+          </div>
+          {[
+            "D.D.S., UCSF School of Dentistry — ranked #2 in the nation",
+            "B.S. Biology, University of the Pacific",
+            "Quintessence Award — Outstanding Achievement in Restorative Dentistry",
+            "Honors, American College of Dentists"
+          ].map((item) =>
+            <div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 8 }}>
+              <div style={{ width: 5, height: 5, borderRadius: "50%", background: tweaks.accentColor || T.teal, marginTop: 8, flexShrink: 0 }} />
+              <span style={{ fontSize: 14, color: T.slateMid, lineHeight: 1.55 }}>{item}</span>
+            </div>
+          )}
+        </div>
+
         <a href="#contact" style={{
         display: "inline-flex", alignItems: "center", gap: 9,
         background: tweaks.accentColor || T.teal, color: "#fff",
@@ -785,7 +802,7 @@ const About = ({ tweaks }) =>
       }}
       onMouseEnter={(e) => {e.currentTarget.style.opacity = "0.88";e.currentTarget.style.transform = "translateY(-1px)";}}
       onMouseLeave={(e) => {e.currentTarget.style.opacity = "1";e.currentTarget.style.transform = "";}}>
-        
+
           Book a Consultation
           <Icon name="arrow" size={15} color="#fff" />
         </a>
