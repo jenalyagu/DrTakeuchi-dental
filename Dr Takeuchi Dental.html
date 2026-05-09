@@ -313,7 +313,7 @@ const Hero = ({ tweaks }) => {
             Dr. Doug Takeuchi brings comfort-first, anxiety-free dentistry to every appointment — from routine cleanings to full smile makeovers. New patients always welcome.
           </p>
 
-          <div className="fade-up delay-3" style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 52 }}>
+          <div className="fade-up delay-3" style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 16 }}>
             <a href="#contact" style={{
               background: tweaks.accentColor || T.teal,
               color: "#fff", padding: "15px 32px", borderRadius: 50,
@@ -341,6 +341,11 @@ const Hero = ({ tweaks }) => {
               <Icon name="phone" size={16} color="#fff" />
               Call Now
             </a>
+          </div>
+
+          <div className="fade-up delay-3" style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 36, color: "oklch(0.78 0.03 220)", fontSize: 13 }}>
+            <Icon name="calendar" size={13} color="oklch(0.78 0.03 220)" />
+            Mon–Fri · 8am–5pm &nbsp;·&nbsp; Same-day emergencies welcome
           </div>
 
           {/* Social proof strip */}
